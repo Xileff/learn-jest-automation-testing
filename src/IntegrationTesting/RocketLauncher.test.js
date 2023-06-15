@@ -3,7 +3,7 @@ const RocketLauncher = require('./RocketLauncher');
 const RocketRepairKit = require('./RocketRepairKit');
 
 describe('A RocketLauncher', () => {
-  // 1. Dummy : Mengisi parameter seperlunya, meski tidak terpakai
+  // 1. Dummy : Fill mandatory parameter with dummy objects
   it('should launch all rockets', () => {
     // Arrange
     const nasaRocket = new Rocket('Nasa');
@@ -35,7 +35,7 @@ describe('A RocketLauncher', () => {
     expect(rocketLauncher.rockets.length).toEqual(1);
   });
 
-  // 2. Stub : Mengubah behavior objek untuk memenuhi skenario testing
+  // 2. Stub : Create a fake object with certain behavior to fulfill the testing scenario
   it('should return correct result when repair kit cannot repair the rocket', async () => {
     // Arrange
     const fakeRocketRepairKit = {
@@ -51,8 +51,7 @@ describe('A RocketLauncher', () => {
     expect(result).toEqual('there was 1 of 1 rocket fail to repair!');
   });
 
-  // 3. Mock : Mengubah behavior objek untuk memastikan sebuah fungsi
-  // benar-benar dipanggil pada skenario testing
+  // 3. Mock : Change a fake object with certain behavior to verify a function is called
   it('should repair some repairable rocket when repair kit cannot repair some of the rocket', async () => {
     // Arrange
     const repairableRocket = new Rocket('repairableRocket');
@@ -82,7 +81,7 @@ describe('A RocketLauncher', () => {
     expect(fakeRocketRepairKit.repair).toBeCalledWith(repairableRocket);
   });
 
-  // 4. Spy : Tes dengan real object
+  // 4. Spy : Create a real object to fulfill real scenario
   it('should repair all the rockets with repair kit correctly', async () => {
     // Arrange -> real object
     const nasaRocket = new Rocket('Nasa');
@@ -102,3 +101,8 @@ describe('A RocketLauncher', () => {
     expect(result).toEqual('all rocket repaired!');
   });
 });
+
+/* Key takeaway :
+When possible, implement "spy"
+Don't "mock" everything, just do it when it's troublesome to create a real object for testing
+*/
